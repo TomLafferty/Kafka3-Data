@@ -1,5 +1,18 @@
 from kafka import KafkaConsumer, TopicPartition
 from json import loads
+import sqlalchemy
+
+
+class Transaction(Base):
+    __tablename__ = 'transaction'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    custid = Column(Integer)
+    type = Column(String(250), nullable=False)
+    date = Column(Integer)
+    amt = Column(Integer)
+
 
 class XactionConsumer:
     def __init__(self):
@@ -10,12 +23,13 @@ class XactionConsumer:
         ## These are two python dictionarys
         # Ledger is the one where all the transaction get posted
         self.ledger = {}
-        # custBalances is the one where the current blance of each customer
+        # custBalances is the one where the current balance of each customer
         # account is kept.
         self.custBalances = {}
         # THE PROBLEM is every time we re-run the Consumer, ALL our customer
         # data gets lost!
         # add a way to connect to your database here.
+        
 
         #Go back to the readme.
 
